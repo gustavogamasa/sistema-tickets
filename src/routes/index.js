@@ -1,4 +1,5 @@
 import { Redirect, Switch } from 'react-router-dom';
+
 import Route from './Route'
 
 import SignIn from '../pages/SignIn';
@@ -13,11 +14,11 @@ export default props =>
     
         <Switch>
            <Route  exact path ="/" component={SignIn} />
-           <Route  exact path ="/register" component={SignUp} />
+           <Route   path ="/register" component={SignUp} />
 
-           <Route  exact path = "/dashboard" component={Dashboard} isPrivate/>
+           <Route   path = "/dashboard" component={Dashboard} isPrivate/>
 
-           <Redirect from ='*' to='/' />
+           {/* <Redirect from ='*' to='/' /> */}
            
         </Switch>
         

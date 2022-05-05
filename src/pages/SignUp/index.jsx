@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../contexts/auth'
 
 import logo from '../../assets/logo.png'
 
@@ -12,9 +13,22 @@ function SignUp() {
   const [password, setPassword] = useState('');
   const [nome, setNome] = useState('');
 
-  function handleSubmit(e){
+  const { signUpRegister } = useContext(AuthContext);
+
+  function handleSubmit(e) {
     e.preventDefault();
-    alert(`Clicou: `);
+
+    if (nome !== '' && email !== '' && password !== '') {
+      try {
+        signUpRegister(email, password, nome);
+      } catch (e) {
+        console.log(e);
+      }
+    } else {
+      alert(`Informe os dados corretamente`);
+    }
+
+
   }
 
   return (
@@ -25,12 +39,12 @@ function SignUp() {
         </div>
         <form onSubmit={handleSubmit}>
           <h1>Criar conta</h1>
-          <input type="text" placeholder='Seu nome' value={nome} onChange={ (e) => setNome(e.target.value) } />
-          <input type="text" placeholder='email@email.com' value={email} onChange={ (e) => setEmail(e.target.value) } />
-          <input type="password" placeholder='*********' value={password} onChange={ (e) => setPassword(e.target.value) } />
+          <input type="text" placeholder='Seu nome' value={nome} onChange={(e) => setNome(e.target.value)} />
+          <input type="text" placeholder='email@email.com' value={email} onChange={(e) => setEmail(e.target.value)} />
+          <input type="password" placeholder='*********' value={password} onChange={(e) => setPassword(e.target.value)} />
           <button type="submit">Cadastrar</button>
         </form>
-        
+
         <Link to='/'> Já possui uma conta? Clique aqui</Link>
 
       </div>

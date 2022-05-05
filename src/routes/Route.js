@@ -8,8 +8,8 @@ export default function RouteWrapper({
     ...rest
 }) {
 
-    const { signed } = useContext(AuthContext);
-    const loading = false;
+    const { signed, loading } = useContext(AuthContext);
+    
    
 
     if(loading){
