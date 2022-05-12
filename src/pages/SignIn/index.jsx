@@ -4,6 +4,7 @@ import { AuthContext } from '../../contexts/auth';
 
 import './signin.css'
 import logo from '../../assets/logo.png'
+import { NavLink } from 'react-router-dom';
 
 
 
@@ -46,7 +47,7 @@ function SignIn() {
           <button type="submit"> {loadingAuth ? <div className='spinner'>Carregando </div> : "Acessar"} </button>
         </form>
 
-        <Link to='/register'> Criar conta </Link>
+        <NavLink to='/register'> Criar conta </NavLink>
 
       </div>
     </div>

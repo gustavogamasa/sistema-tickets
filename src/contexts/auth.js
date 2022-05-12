@@ -1,4 +1,4 @@
-
+import { toast } from 'react-toastify';
 import { useState, useEffect, createContext, useSyncExternalStore } from 'react';
 import SignUp from '../pages/SignUp';
 import firebase from '../services/firebaseConnection';
@@ -54,14 +54,16 @@ function AuthProvider({ children }) {
 
                 setUser(data);
                 storageUser(data);
+                
                 setLoadingAuth(false);
 
-                alert("Login efetuado com sucesso");
+                
 
 
             })
             .catch((e) => {
                 console.log(e);
+                toast.error("Ops! Algo deu errado");
                 setLoadingAuth(false);
             });
 
@@ -96,12 +98,14 @@ function AuthProvider({ children }) {
                         setUser(data);
                         storageUser(data);
                         setLoadingAuth(false);
+                        toast.success("Bem vindo!");
 
                     });
 
 
             }).catch((error) => {
                 console.log(error);
+                toast.error("Ops! Algo deu errado");
                 setLoadingAuth(false);
             });
 

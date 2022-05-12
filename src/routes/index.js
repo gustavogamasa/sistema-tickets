@@ -1,4 +1,4 @@
-import { Redirect, Switch } from 'react-router-dom';
+import { Redirect, Switch , BrowserRouter as Router} from 'react-router-dom';
 
 import Route from './Route'
 
@@ -10,8 +10,9 @@ import Dashboard from '../pages/Dashboard';
 
 
 
+
 export default props =>
-    
+  
         <Switch>
            <Route  exact path ="/" component={SignIn} />
            <Route   path ="/register" component={SignUp} />
@@ -21,4 +22,5 @@ export default props =>
            {/* <Redirect from ='*' to='/' /> */}
            
         </Switch>
+       
         
