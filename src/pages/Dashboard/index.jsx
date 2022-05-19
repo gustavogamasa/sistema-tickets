@@ -1,5 +1,4 @@
 import { useContext } from 'react'
-import {toast}  from 'react-toastify'
 import { AuthContext } from '../../contexts/auth'
 import Header from '../../components/Header';
 
@@ -8,9 +7,9 @@ export default function Dashboard() {
 
     const { signOut } = useContext(AuthContext);
 
-    function mensagemBemVindo(){
-        toast.success("Bem vindo de volta!");
-    }
+    // function mensagemBemVindo(){
+    //     toast.success("Bem vindo de volta!");
+    // }
     
 
 
@@ -19,7 +18,7 @@ export default function Dashboard() {
 
     return (
         <div>
-            {mensagemBemVindo()}
+           
             <Header></Header>
             Dashboard <h2>LOGADO</h2>
             <button onClick={() => signOut()}> Fazer logout </button>

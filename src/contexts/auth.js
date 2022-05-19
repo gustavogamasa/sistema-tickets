@@ -44,19 +44,21 @@ function AuthProvider({ children }) {
 
                 const userProfile = await firebase.firestore().collection('users')
                     .doc(uid).get();
+                    
 
                 let data = {
                     uid: uid,
-                    nome: userProfile.data.nome,
-                    email: userProfile.data.email,
-                    avatarUrl: value.user.email
+                    nome: userProfile.data().nome,
+                    email: value.user.email,
+                    avatarUrl: userProfile.data().avatarUrl
                 };
 
                 setUser(data);
                 storageUser(data);
-                
+                toast.success(`Bem vindo de volta, ${data.nome}`);
                 setLoadingAuth(false);
-
+                console.log(data);
+                
                 
 
 

@@ -13,20 +13,21 @@ export default function Header() {
 
     const { user } = useContext(AuthContext);
     const { signOut } = useContext(AuthContext);
-
+    
 
 
     return (
 
         <div className='sidebar'>
             <div>
-                <img src={user.avatarUrl !== null ? avatar : user.avatarUrl} alt="Foto avatar" />
+                <img src={user.avatarUrl === null ? avatar : user.avatarUrl} alt="Foto avatar" />
             </div>
-
+            
             <Link to="/dashboard"> <FiHome color='#FFF' size={24}/>Chamados </Link>
-            <Link to="/dashboard"> <FiUser color='#FFF' size={24}/>Clientes </Link>
-            <Link to="/dashboard"> <FiSettings color='#FFF' size={24}/>Configurações </Link>
+            <Link to="/customers"> <FiUser color='#FFF' size={24}/>Clientes </Link>
+            <Link to="/profilesettings"> <FiSettings color='#FFF' size={24}/>Configurações </Link>
             <button onClick={() => signOut()}> Fazer logout </button>
+           
 
 
         </div>

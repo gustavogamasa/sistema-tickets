@@ -74,9 +74,22 @@
     .sidebar a svg{
         display: none;
     }
+
+    div.content{
+        margin-left: 0;
+    }
 }
 
+.content{
+    margin-left: 200px;
+}
+
+
+
 @media screen and (max-width:400px) {
+
+   
+    
 
     .sidebar a{
         text-align: center;
@@ -85,5 +98,9 @@
     
     .sidebar a svg{
         display: none;
+    }
+
+    div.content{
+        margin-left: 0;
     }
 }
