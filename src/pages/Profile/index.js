@@ -3,6 +3,7 @@ import { useState, useContext } from 'react';
 import Header from '../../components/Header';
 import Title from '../../components/Title'
 import avatar from '../../assets/avatar.png'
+import firebase from '../../services/firebaseConnection';
 
 import { FiSettings, FiUpload } from 'react-icons/fi'
 
@@ -16,12 +17,27 @@ export default function Profile() {
     const [email, setEmail] = useState(user && user.email);
 
     const [avatarUrl, setAvatarUrl] = useState(user && user.avatarUrl);
+    const [imageAvatar, setImageAvater] = useState(null);
 
-    function handleSave(e){
+   async function handleSave(e){
         e.preventDefault();
-        console.log("Salvar")
+       
+
+        if(imageAvatar === null && nome !== ""){
+            await firebase.firestore().collection('users')
+            .doc(user.uid)
+            .update({
+                nome: nome
+            })
+            .then(()=>{
+                
+            })
+            
+        }
     }
 
+
+  
 
     return (
 
@@ -32,7 +48,7 @@ export default function Profile() {
 
 
                 <div className='container'>
-                    <form className='form-profile'>
+                    <form className='form-profile' onSubmit={handleSave}>
                         <label className='label-avatar'>
                             <span>
                                 <FiUpload color='#FFF' size={25}></FiUpload>
