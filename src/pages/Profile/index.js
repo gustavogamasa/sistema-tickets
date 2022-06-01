@@ -11,33 +11,59 @@ import { AuthContext, signOut } from '../../contexts/auth';
 
 export default function Profile() {
 
-    const { user, signOut } = useContext(AuthContext);
+    const { user, signOut, setUser, storageUser  } = useContext(AuthContext);
 
     const [nome, setNome] = useState(user && user.nome);
     const [email, setEmail] = useState(user && user.email);
 
     const [avatarUrl, setAvatarUrl] = useState(user && user.avatarUrl);
-    const [imageAvatar, setImageAvater] = useState(null);
+    const [imageAvatar, setImageAvatar] = useState(null);
 
-   async function handleSave(e){
+
+
+
+    function handleFile(e){
+        // console.log(e.target.files[0]);
+        if(e.target.files[0]){
+            const image = e.target.files[0];
+            if (image.type === 'image/jpeg' || image.type == "image/png") {
+                setImageAvatar(image);
+                setAvatarUrl(URL.createObjectURL(e.target.files[0]))
+            } else { alert('Envie uma imagem no formato JPEG ou PNG')
+        return null; }
+        }
+
+    }
+
+    async function handleUploadAvatar(){
+
+    }
+
+    async function handleSave(e) {
         e.preventDefault();
-       
 
-        if(imageAvatar === null && nome !== ""){
+        if (imageAvatar === null && nome !== "") {
             await firebase.firestore().collection('users')
-            .doc(user.uid)
-            .update({
-                nome: nome
-            })
-            .then(()=>{
-                
-            })
-            
+                .doc(user.uid)
+                .update({
+                    nome: nome
+                })
+                .then(() => {
+                alert("Cadastro alterado com sucesso");
+                let data = {
+                    ...user,
+                    nome: nome
+                };
+                setUser(data);
+                storageUser(data);
+                })
+        } else if (nome !== "" && imageAvatar !== null){
+            handleUploadAvatar();
         }
     }
 
 
-  
+
 
     return (
 
@@ -53,29 +79,29 @@ export default function Profile() {
                             <span>
                                 <FiUpload color='#FFF' size={25}></FiUpload>
                             </span>
-                            <input type="file" accept="image/*"></input><br />
-                            {avatarUrl === null ? 
-                            <img src={avatar} width="250" height="250" alt='Foto do perfil do usuario'></img>    
-                            :
-                            <img src={avatarUrl} width="250" height="250" alt='Foto do perfil do usuario'></img> 
-                        }
+                            <input type="file" accept="image/*" onChange={handleFile}></input><br />
+                            {avatarUrl === null ?
+                                <img src={avatar} width="250" height="250" alt='Foto do perfil do usuario'></img>
+                                :
+                                <img src={avatarUrl} width="250" height="250" alt='Foto do perfil do usuario'></img>
+                            }
                         </label>
 
                         <label> Nome </label>
-                        <input type="text" value={nome} onChange={(e)=>setNome(e.target.value)}></input>
+                        <input type="text" value={nome} onChange={(e) => setNome(e.target.value)}></input>
                         <label> Email </label>
                         <input type="text" value={email} disabled={true}></input>
-                        <button type="submit" onClick={(e)=>handleSave(e)}>Salvar</button>
+                        <button type="submit" onClick={(e) => handleSave(e)}>Salvar</button>
                     </form>
 
                 </div>
 
-               <div className='container'>
-                    <button className='logout-btn' onClick={()=>{signOut()}}>
+                <div className='container'>
+                    <button className='logout-btn' onClick={() => { signOut() }}>
                         Sair
                     </button>
 
-               </div>
+                </div>
 
 
 
