@@ -11,7 +11,7 @@ import { AuthContext, signOut } from '../../contexts/auth';
 
 export default function Profile() {
 
-    const { user, signOut, setUser, storageUser  } = useContext(AuthContext);
+    const { user, signOut, setUser, storageUser } = useContext(AuthContext);
 
     const [nome, setNome] = useState(user && user.nome);
     const [email, setEmail] = useState(user && user.email);
@@ -22,22 +22,62 @@ export default function Profile() {
 
 
 
-    function handleFile(e){
+    function handleFile(e) {
         // console.log(e.target.files[0]);
-        if(e.target.files[0]){
+        if (e.target.files[0]) {
             const image = e.target.files[0];
             if (image.type === 'image/jpeg' || image.type == "image/png") {
                 setImageAvatar(image);
                 setAvatarUrl(URL.createObjectURL(e.target.files[0]))
-            } else { alert('Envie uma imagem no formato JPEG ou PNG')
-        return null; }
+            } else {
+                alert('Envie uma imagem no formato JPEG ou PNG')
+                return null;
+            }
         }
 
     }
 
-    async function handleUploadAvatar(){
+    async function handleUploadAvatar() {
+
+        const currentUid = user.uid;
+
+        const uploadTask = await firebase.storage()
+            .ref(`images/${currentUid}/${imageAvatar.name}`)
+            .put(imageAvatar)
+            .then(async () => {
+                console.log("Nova foto enviada com sucesso!");
+
+                await firebase.storage().ref(`images/${currentUid}`)
+                    .child(imageAvatar.name).getDownloadURL()
+                    .then(async (url) => {
+
+                        let urlFoto = url;
+
+                        await firebase.firestore().collection('users')
+                            .doc(user.uid)
+                            .update({
+                                avatarUrl: urlFoto,
+                                nome: nome
+                            })
+                            .then(() => {
+                                let data = {
+                                    ...user,
+                                    avatarUrl: urlFoto,
+                                    nome: nome
+                                };
+                                setUser(data);
+                                storageUser(data);
+                            })
+
+                    })
+
+            })
 
     }
+
+
+
+
 
     async function handleSave(e) {
         e.preventDefault();
@@ -49,15 +89,15 @@ export default function Profile() {
                     nome: nome
                 })
                 .then(() => {
-                alert("Cadastro alterado com sucesso");
-                let data = {
-                    ...user,
-                    nome: nome
-                };
-                setUser(data);
-                storageUser(data);
+                    alert("Cadastro alterado com sucesso");
+                    let data = {
+                        ...user,
+                        nome: nome
+                    };
+                    setUser(data);
+                    storageUser(data);
                 })
-        } else if (nome !== "" && imageAvatar !== null){
+        } else if (nome !== "" && imageAvatar !== null) {
             handleUploadAvatar();
         }
     }
