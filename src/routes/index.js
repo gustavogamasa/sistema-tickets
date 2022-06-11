@@ -7,6 +7,7 @@ import SignUp from '../pages/SignUp';
 
 import Dashboard from '../pages/Dashboard';
 import Profile from '../pages/Profile';
+import Customers from '../pages/Customers';
 
 
 
@@ -20,6 +21,7 @@ export default props =>
 
            <Route  exact path = "/profilesettings" component={Profile} isPrivate/>
            <Route  exact path = "/dashboard" component={Dashboard} isPrivate/>
+           <Route exact path = "/customers" component={Customers} isPrivate/>
 
            {/* <Redirect from ='*' to='/' /> */}
            
