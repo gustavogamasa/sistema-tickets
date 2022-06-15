@@ -1,6 +1,8 @@
 import { useContext, useState } from 'react'
 import { AuthContext } from '../../contexts/auth'
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import firebase from '../../services/firebaseConnection';
 
 import Header from '../../components/Header';
 import Title from '../../components/Title'
