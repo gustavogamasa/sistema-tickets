@@ -11,7 +11,7 @@ import './dashboard.css'
 export default function Dashboard() {
 
     const { signOut } = useContext(AuthContext);
-    const [chamados, setChamados] = useState([1]);
+    const [chamados, setChamados] = useState([]);
 
 
     return (
@@ -35,6 +35,8 @@ export default function Dashboard() {
                     // IF SEM CONTEÚDO
 
                 ) : (
+
+                     // IF COM CONTEÚDO
 
                     <>
                         <Link to="/new" className='new'>
