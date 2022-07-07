@@ -24,8 +24,6 @@ export default props =>
            <Route  exact path = "/dashboard" component={Dashboard} isPrivate/>
            <Route exact path = "/customers" component={Customers} isPrivate/>
            <Route exact path = "/new" component={New} isPrivate/>
-
-           {/* <Redirect from ='*' to='/' /> */}
            
         </Switch>
        

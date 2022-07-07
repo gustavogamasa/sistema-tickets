@@ -83,6 +83,7 @@ export default function Dashboard() {
                     complemento: doc.data().complemento
                 })
             })
+            
             const lastDoc = snapshot.docs[snapshot.docs.length - 1]; //pega o ultimo chamado carregado
 
             setChamados(chamados => [...chamados, ...lista]);

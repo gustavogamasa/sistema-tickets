@@ -99,8 +99,7 @@ export default function New() {
     //chamado quando troca cliente
     function handleChangeCustomers(e) {
         e.preventDefault();
-        // console.log("Index selecionado: ", e.target.value);
-        // console.log("Cliente selecionado: ",customers[e.target.value]);
+      
         setCustomerSelected(e.target.value);
 
 

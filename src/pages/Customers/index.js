@@ -15,6 +15,7 @@ export default function Customers() {
     const [endereco, setEndereco] = useState("");
 
     async function handleAdd(e) {
+
         e.preventDefault();
 
         if (nomeFantasia !== '' && CNPJ !== '' && endereco !== '') {
@@ -64,7 +65,7 @@ export default function Customers() {
                         <input type="text" placeholder='CNPJ' value={CNPJ} onChange={(e) => { setCNPJ(e.target.value) }}></input>
                         <label>Endereço</label>
                         <input type="text" placeholder='Endereço' value={endereco} onChange={(e) => { setEndereco(e.target.value) }}></input>
-                        <button type='submit'> Cadastrar</button>
+                        <button type='submit'>Cadastrar</button>
                     </form>
                 </div>
 
